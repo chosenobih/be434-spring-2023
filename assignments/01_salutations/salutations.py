@@ -48,9 +48,14 @@ def main():
     name = args.name
     excited = args.excited
 
-    salutaion = f"{greeting} {name}"
-    if excited: salutaion += "!"
+    salutaion = f"{greeting}, {name}"
+    if excited:
+        salutaion += "!"
+    else:
+        salutaion += "."
     print(salutaion)
+
+
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
