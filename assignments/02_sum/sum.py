@@ -19,6 +19,7 @@ def get_args():
 
     parser.add_argument('numbs',
                         metavar='int',
+                        type=int,
                         nargs='+',
                         help='Numbers to add')
 
@@ -33,11 +34,11 @@ def main():
     numbs = args.numbs
     numbers = []
     total = 0
-    for numb in numbs:
+    for numb in args.numbs:
         total += numb
         numbers.append(str(numb))
     sum = ' + '.join(numbers)
-    print('sum')
+    print(sum)
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
