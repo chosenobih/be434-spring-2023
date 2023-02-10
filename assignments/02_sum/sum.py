@@ -37,8 +37,7 @@ def main():
     for numb in args.numbs:
         total += numb
         numbers.append(str(numb))
-    sum = ' + '.join(numbers)
-    print(sum)
+    print('{} = {}'.format(' + '.join(numbers), total))
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
