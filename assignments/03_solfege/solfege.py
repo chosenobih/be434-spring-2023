@@ -17,7 +17,6 @@ def get_args():
         description='solfege',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    # make sure your arguments are always lowercase Solfege -> solfege
     parser.add_argument('solfege',
                         nargs='+',
                         metavar='str',
@@ -33,12 +32,8 @@ def main():
 
     args = get_args()
 
-    # be sure to use the argument you created above.
-    # texts = args.texts   ->  texts = args.solfege
     texts = args.solfege
 
-    # needed to correct the spacing, Python requires 4 spaces after the 
-    # dictionary is defined
     syllable = {
         'Do': 'A deer, a female deer',
         'Re': 'A drop of golden sun',
@@ -49,17 +44,11 @@ def main():
         'Ti': 'A drink with jam and bread',
     }
 
-    # I changed this to "texts" that you assigned it to above
-    # you can also use "for text in args.solfege:" It just needed to match
-    # what you assigned in the get_args above
     for text in texts:
-        # You need to check that the text is in syllable first
-        #print(syllable.get(text, text), end='')
         if text in syllable:
             print(f'{text}, {syllable.get(text)}')
         else:
-            # tell the user you don't have the note to print
-            print("Check out the README.md to see what to print here")
+            print(f'I don\'t know "{text}"')
 
 
 # --------------------------------------------------
