@@ -35,20 +35,19 @@ def get_args():
 def main():
     """Main function to run the program"""
 
+    args = get_args()
+# file = args.file
+# number = args.number
 
-args = get_args()
-file = args.file
-number = args.number
-
-line_num = 1
-for file_name in args.files:
-    with open(file_name, encoding="utf8") as f:
-        for line in f:
-            if args.number:
-                print(f'{line_num:>6}  {line}', end='')
-                line_num += 1
-            else:
-                print(line, end='')
+    line_number = 0
+    for file_name in args.files:
+        with open(file_name, encoding="utf8") as f:
+            for line in f:
+                if args.number:
+                    print(f'{line_number:>6}  {line}', end='')
+                    line_number += 1
+                else:
+                    print(line, end='')
 
 
 # --------------------------------------------------
