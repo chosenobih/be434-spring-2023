@@ -44,7 +44,7 @@ def main():
         with open(file_name, encoding="utf8") as f:
             for line in f:
                 if args.number:
-                    print(f'{line_number:>6}  {line}', end='')
+                    print(f'{line_number:>6} {line}', end='')
                     line_number += 1
                 else:
                     print(line, end='')
