@@ -22,7 +22,8 @@ def get_args():
     )
 
     parser.add_argument(
-        'SEQ',
+        # this argument to the command line is usually lowercase
+        'seqs',
         metavar='SEQ',
         nargs='+',
         help='Input sequence(s)'
@@ -32,7 +33,11 @@ def get_args():
         '-o',
         '--outfile',
         metavar='FILE',
-        type=argparse.FileType(mode='w', encoding='UTF-8'),
+        #type=argparse.FileType(mode='w', encoding='UTF-8'),
+        # you can tell argparse to write in text mode
+        type=argparse.FileType('wt'),
+        # add the deault to std.out here
+        default=sys.stdout,
         help='Output filename'
     )
 
@@ -44,12 +49,15 @@ def main():
     """Main function to run the program"""
 
     args = get_args()
-    SEQ = args.SEQ
-    if args.outfile:
-        fh = open(args.out, 'wt', encoding='UTF-8')
-    else:
-        fh = sys.stdout
-    filename = fh.name
+    seqs = args.seqs
+    #SEQ = args.SEQ
+
+    # no need to open the file, because argparse already did for you.
+    #if args.outfile:
+    #    fh = open(args.out, 'wt', encoding='UTF-8')
+    #else:
+    #    fh = sys.stdout
+    #filename = fh.name
 
     codes = {}
     codes['A'] = 'A'
@@ -69,16 +77,31 @@ def main():
     codes['V'] = '[ACG]'
     codes['N'] = '[ACGT]'
 
-    for dna in SEQ:
+    for dna in seqs:
         text = [dna]
-        text.append('')
-        text += [codes.get(dna_char, dna_char) for dna_char in dna]
-        fh.write(''.join(text))
-        fh.write('\n')
+        # use a space as part of the join as the separator below
+        #text.append('')
+        #iupac += [codes.get(dna_char, dna_char) for dna_char in dna]
+        # use join to add to a string
+        iupac_text = ''.join([codes.get(dna_char, dna_char) for dna_char in dna])  
+        text.append(iupac_text)
+        
+        # add a space in between 
+        #fh.write(''.join(text))
+        #fh.write(' '.join(text))
+        #fh.write('\n')
+  
+        # use a print statement to print to stdout of outfile
+        print(' '.join(text), file=args.outfile)
 
-    if filename != '<stdout>':
-        print(f'Done, see output in "{filename}"')
-    fh.close()
+
+    #here is a way to write the "done statement 
+    if args.outfile != sys.stdout:
+        print(f'Done, see output in "{args.outfile.name}"')
+
+    #if filename != '<stdout>':
+    #    print(f'Done, see output in "{filename}"')
+    #fh.close()
 
 
 # --------------------------------------------------
