@@ -17,7 +17,8 @@ def get_args():
         description='Python cat',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('file',
+    # note that I updated to "files" here becuase you use that later
+    parser.add_argument('files',
                         nargs='+',
                         metavar='file',
                         type=argparse.FileType("rt"),
@@ -39,15 +40,23 @@ def main():
 # file = args.file
 # number = args.number
 
-    line_number = 0
+# note that you already opened the file(s) as file handle(s) 
+# with the magic of argparse, no need to open it again
+# line_number should start at 1, and start at 1 for each file
+# you need to move inside the loop to reset to 1 after each file
+    #line_number = 0
     for file_name in args.files:
-        with open(file_name, encoding="utf8") as f:
-            for line in f:
-                if args.number:
-                    print(f'{line_number:>6} {line}', end='')
-                    line_number += 1
-                else:
-                    print(line, end='')
+        #with open(file_name, encoding="utf8") as f:
+        # you need to count line numbers here, so you don't start over
+        # for each file you are concatenating
+        line_number = 1
+        for line in file_name:
+            if args.number:
+                # added the tab \t below and rstrip to remove the \n
+                print(f'{line_number:>6}\t{line.rstrip()}')
+                line_number += 1
+            else:
+                print(line, end='')
 
 
 # --------------------------------------------------
